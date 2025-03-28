@@ -1,0 +1,22 @@
+version: "3.8"
+services:
+  web:
+    build: .
+    ports:
+      - "8050:8050"
+    environment:
+      - DATABASE_URL=postgresql://user:password@db/crypto
+      - GITHUB_CLIENT_ID=your_client_id
+      - GITHUB_CLIENT_SECRET=your_client_secret
+    depends_on:
+      - db
+
+  db:
+    image: postgres:latest
+    restart: always
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: crypto
+    ports:
+      - "5432:5432"
